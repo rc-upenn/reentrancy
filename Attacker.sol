@@ -70,4 +70,4 @@ contract Attacker is AccessControl, IERC777Recipient {
         bank.claimAll();
 		}
 	}
-
+	}
